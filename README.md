@@ -15,17 +15,17 @@ Este projeto tem como objetivo oferecer uma solução prática para consumidores
 
 ### Funcionalidades Principais
 
-- Criação e Gestão de Lista de Compras  
+- Criação e Gestão de Lista de Compras:  
   Permite ao usuário criar e gerenciar uma lista de produtos desejados, com informações básicas como nome, quantidade e categoria.  
-- Cadastro de Produtos e Mercados  
+- Cadastro de Produtos e Mercados:  
   Possibilita registrar produtos em diferentes mercados, incluindo preço e promoções simuladas.  
-- Comparação de Preços  
+- Comparação de Preços:  
   O sistema compara automaticamente os preços dos itens da lista entre mercados, identificando a opção mais barata para cada produto.  
-- Promoções Simuladas em Mercados Próximos  
+- Promoções Simuladas em Mercados Próximos:  
   Exibe mercados cadastrados com promoções em itens da lista, simulando ofertas disponíveis.  
-- Notificação de Promoções (Simulada)  
+- Notificação de Promoções (Simulada):  
   Notifica o usuário quando algum produto da sua lista entra em promoção em determinado mercado.  
-- Relatórios Básicos  
+- Relatórios Básicos:  
   Gera uma visão geral da lista de compras, destacando economia potencial ao escolher o mercado mais vantajoso.  
 
 ---
