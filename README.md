@@ -1,40 +1,50 @@
 
-## Fábrica de Software 2025/2  
+## Fábrica de Software 2025/2
 
 ### Integrantes
-- Pedro Henrique A. Alves  
+- Pedro Henrique A. Alves
 
 ---
 
 ## Proposta de Projeto
 
-### 1. Sistema de Lista de Compras e Comparação de Preços  
+### 1. Sistema de Gerenciamento de Vendas de Lotes
 
-Este projeto tem como objetivo oferecer uma solução prática para consumidores organizarem suas compras, compararem preços entre diferentes mercados e aproveitarem promoções. Ele auxilia no planejamento das compras e na economia, tornando o processo mais eficiente.  
+Este projeto tem como objetivo oferecer uma solução centralizada para a gestão do ciclo de vendas de empreendimentos imobiliários, como loteamentos e multipropriedades. Ele auxilia no controle de inventário de lotes, no registro de clientes, no acompanhamento das vendas e na gestão financeira das parcelas e pagamentos.
+
 ---
 
 ### Funcionalidades Principais
 
-- Criação e Gestão de Lista de Compras:  
-  Permite ao usuário criar e gerenciar uma lista de produtos desejados, com informações básicas como nome, quantidade e categoria.  
-- Cadastro de Produtos e Mercados:  
-  Possibilita registrar produtos em diferentes mercados, incluindo preço e promoções simuladas.  
-- Comparação de Preços:  
-  O sistema compara automaticamente os preços dos itens da lista entre mercados, identificando a opção mais barata para cada produto.  
-- Promoções Simuladas em Mercados Próximos:  
-  Exibe mercados cadastrados com promoções em itens da lista, simulando ofertas disponíveis.  
-- Notificação de Promoções (Simulada):  
-  Notifica o usuário quando algum produto da sua lista entra em promoção em determinado mercado.  
-- Relatórios Básicos:  
-  Gera uma visão geral da lista de compras, destacando economia potencial ao escolher o mercado mais vantajoso.  
+- **Gestão de Empreendimentos e Lotes:**
+  Permite cadastrar e gerenciar empreendimentos, adicionando lotes e frações com informações como identificador, área, valor e status (Disponível, Vendido).
+
+- **Cadastro de Clientes:**
+  Possibilita manter um registro completo dos clientes, incluindo dados pessoais e de contato, para associá-los às transações de venda.
+
+- **Registro e Acompanhamento de Vendas:**
+  O sistema permite registrar uma nova venda, vinculando um cliente a um lote/fração disponível, e acompanha o status da transação.
+
+- **Gestão Financeira (Parcelas e Pagamentos):**
+  Para cada venda, o sistema gera o plano de parcelamento e permite o registro dos pagamentos efetuados, facilitando o controle de contas a receber.
+
+- **Geração de Contratos (Simulada):**
+  Gera um contrato básico a partir dos dados de uma venda, formalizando o acordo entre a empresa e o cliente.
+
+- **Relatórios Básicos:**
+  Gera uma visão geral do status dos lotes por empreendimento, destacando o que está disponível e o que já foi vendido.
 
 ---
 ### Histórias de Usuário
 
-- Como consumidor, quero criar e gerenciar uma lista de compras, para que eu consiga organizar o que preciso comprar em diferentes mercados.  
-- Como consumidor, quero cadastrar produtos em diferentes mercados, para que eu consiga comparar preços e encontrar a melhor opção de compra.  
-- Como consumidor, quero comparar os preços dos itens da minha lista entre diferentes mercados, para que eu consiga escolher onde comprar mais barato.  
-- Como consumidor, quero visualizar promoções simuladas em mercados próximos, para que eu consiga aproveitar descontos disponíveis.  
-- Como consumidor, quero ser notificado quando algum item da minha lista entrar em promoção, para que eu compre no melhor momento e economize.  
+- Como gestor imobiliário, quero cadastrar e gerenciar empreendimentos e seus respectivos lotes, para que eu tenha um inventário claro e organizado do que está disponível para venda.
+
+- Como gestor imobiliário, quero manter um cadastro dos meus clientes, para que eu possa associá-los a vendas e manter um histórico de relacionamento.
+
+- Como gestor imobiliário, quero realizar uma nova venda, vinculando um cliente a um lote disponível e registrando os termos do acordo, para que eu possa formalizar e acompanhar a transação.
+
+- Como gestor imobiliário, quero registrar os pagamentos das parcelas de cada venda, para que eu consiga manter o controle financeiro e a adimplência dos meus clientes.
+
+- Como gestor imobiliário, quero consultar o extrato financeiro de uma venda, para que eu possa visualizar o status de todas as parcelas (pagas, pendentes, etc.).
 
 ---

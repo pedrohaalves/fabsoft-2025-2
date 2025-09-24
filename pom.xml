@@ -10,7 +10,6 @@
     <name>Multi Project: FSO 2025 2</name>
 
     <modules>
-        <module>revisao-poo-walter</module>
         <module>fabsoft-backend</module>
 
     </modules>
