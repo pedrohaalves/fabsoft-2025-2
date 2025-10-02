@@ -3,6 +3,8 @@ package br.univille.entity;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "fracoes")
 public class Fracao {
@@ -14,10 +16,11 @@ public class Fracao {
 
     private BigDecimal percentual;
     private BigDecimal valor;
-    private String status; // Alterado de StatusFracao (Enum) para String
-
+    private String status; 
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "lote_id")
+    @JsonBackReference
     private Lote lote;
 
     public Long getId() {

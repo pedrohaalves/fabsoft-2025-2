@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "lotes")
 public class Lote {
@@ -25,9 +28,11 @@ public class Lote {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "empreendimento_id")
+    @JsonBackReference
     private Empreendimento empreendimento;
 
     @OneToMany(mappedBy = "lote", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Fracao> fracoes;
 
     public Long getId() {

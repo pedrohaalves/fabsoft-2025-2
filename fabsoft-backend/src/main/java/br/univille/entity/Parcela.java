@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "parcelas")
 public class Parcela {
@@ -22,10 +24,11 @@ public class Parcela {
     @Column(name = "valor_total")
     private BigDecimal valorTotal;
 
-    private String status; // Alterado de StatusParcela (Enum) para String
+    private String status; 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "venda_id")
+    @JsonBackReference
     private Venda venda;
 
     public Long getId() {

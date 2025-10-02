@@ -3,6 +3,8 @@ package br.univille.entity;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "empreendimentos")
 public class Empreendimento {
@@ -18,6 +20,7 @@ public class Empreendimento {
     private String status;
 
     @OneToMany(mappedBy = "empreendimento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Lote> lotes;
 
     public Long getId() {

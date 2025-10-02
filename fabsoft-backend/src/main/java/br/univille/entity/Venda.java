@@ -5,6 +5,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "vendas")
 public class Venda {
@@ -23,7 +26,7 @@ public class Venda {
     @Column(name = "forma_pagamento")
     private String formaPagamento;
     
-    private String status; // Alterado de StatusVenda (Enum) para String
+    private String status; 
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fracao_id", referencedColumnName = "fracao_id")
@@ -31,12 +34,14 @@ public class Venda {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id")
+    @JsonBackReference
     private Cliente cliente;
 
     @OneToOne(mappedBy = "venda", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Contrato contrato;
 
     @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Parcela> parcelas;
 
     public Long getId() {
