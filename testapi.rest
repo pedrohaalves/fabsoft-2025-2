@@ -1,0 +1,107 @@
+### =================================================================
+###              SISTEMA DE GESTÃO DE VENDAS DE LOTES
+### =================================================================
+
+### 1. VISUALIZAÇÃO DOS DADOS INICIAIS 
+
+### Listar todos os Empreendimentos
+GET http://localhost:8080/api/v1/empreendimentos
+
+### Listar todos os Lotes
+GET http://localhost:8080/api/v1/lotes
+
+### Listar todos os Clientes 
+GET http://localhost:8080/api/v1/clientes
+
+### Listar todas as Vendas 
+GET http://localhost:8080/api/v1/vendas
+
+### Listar todas as Parcelas 
+GET http://localhost:8080/api/v1/parcelas
+
+
+---
+### 2. CICLO CRUD COMPLETO 
+### Adicionar novo cliente
+### (CREATE) 
+# @name createClient
+POST http://localhost:8080/api/v1/clientes
+Content-Type: application/json
+
+{
+    "nomeCompleto": "Carlos Souza",
+    "cpfCnpj": "999.888.777-66"
+}
+
+### (READ) Buscar o cliente "Carlos" que acabamos de criar pelo ID
+@newClientId = {{createClient.response.body.id}}
+GET http://localhost:8080/api/v1/clientes/{{newClientId}}
+
+### (UPDATE) Atualizar o e-mail do "Carlos"
+PUT http://localhost:8080/api/v1/clientes/{{newClientId}}
+Content-Type: application/json
+
+{
+    "nomeCompleto": "Carlos Souza",
+    "cpfCnpj": "999.888.777-66",
+    "email": "carlos.souza@email.com"
+}
+
+### (DELETE) Deletar o cliente "Carlos"
+DELETE http://localhost:8080/api/v1/clientes/{{newClientId}}
+
+### (VERIFICAÇÃO) Tentar buscar o cliente "Carlos" novamente (deve dar erro 404 Not Found)
+GET http://localhost:8080/api/v1/clientes/{{newClientId}}
+
+
+---
+### 3. DEMONSTRAÇÃO DA LÓGICA DE NEGÓCIO: NOVA VENDA
+
+### Conferir Status do lote
+GET http://localhost:8080/api/v1/fracoes/1
+
+### Venda do lote (POST).
+# O serviço de venda vai registrar a transação E atualizar o status da fração.
+POST http://localhost:8080/api/v1/vendas
+Content-Type: application/json
+
+{
+    "cliente": {
+        "id": 1
+    },
+    "fracao": {
+        "id": 1
+    }
+}
+
+### Confirmação da venda
+GET http://localhost:8080/api/v1/fracoes/1
+
+
+---
+### 4. DEMONSTRAÇÃO DA LÓGICA DE NEGÓCIO: REGISTRAR PAGAMENTO
+# demonstração da baixa de uma parcela. A venda inicial da "Ana Paula" gerou parcelas pendentes.
+
+### status da Parcela 1. Deve estar "Pendente".
+GET http://localhost:8080/api/v1/parcelas/1
+
+### registro de um pagamento para quitar a Parcela 1.
+# O serviço de pagamento vai registrar o pagamento E atualizar o status da parcela.
+POST http://localhost:8080/api/v1/pagamentos
+Content-Type: application/json
+
+{
+    "valorPago": 1500.00,
+    "metodoPagamento": "Boleto",
+    "cliente": {
+        "id": 1
+    },
+    "parcelasQuitadas": [
+        {
+            "id": 1
+        }
+    ]
+}
+
+### Confirmação do pagamento da parcela 1 novamente. O status agora deve ser "Paga".
+GET http://localhost:8080/api/v1/parcelas/1
