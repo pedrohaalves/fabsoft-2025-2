@@ -104,4 +104,4 @@ Content-Type: application/json
 }
 
 ### Confirmação do pagamento da parcela 1 novamente. O status agora deve ser "Paga".
-GET http://localhost:8080/api/v1/parcelas/1
+GET http://localhost:8080/api/v1/parcelas/1gitstatus
