@@ -1,0 +1,67 @@
+<main class="container mt-3">
+  
+  <div class="card mb-4">
+    <div class="card-header bg-dark text-white">
+      Gerenciar Empreendimentos
+    </div>
+    <div class="card-body">
+      <div class="mb-3">
+        <label class="form-label">Nome do Empreendimento:</label>
+        <input type="text" class="form-control" [(ngModel)]="empreendimento.nome">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Localização:</label>
+        <input type="text" class="form-control" [(ngModel)]="empreendimento.localizacao">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Descrição:</label>
+        <textarea class="form-control" rows="2" [(ngModel)]="empreendimento.descricao"></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Status (Ex: Lançamento, Em Obras, Pronto):</label>
+        <input type="text" class="form-control" [(ngModel)]="empreendimento.status">
+      </div>
+
+      <button class="btn btn-success" (click)="save()">Salvar</button>
+      <button class="btn btn-secondary ms-2" (click)="clean()">Cancelar</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      Empreendimentos Cadastrados
+    </div>
+    <div class="card-body">
+     <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Localização</th>
+            <th>Descrição</th> <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let emp of listaEmpreendimentos">
+            <td>{{ emp.id }}</td>
+            <td>{{ emp.nome }}</td>
+            <td>{{ emp.localizacao }}</td>
+            <td>{{ emp.descricao }}</td> <td>
+              <span class="badge bg-info">{{ emp.status }}</span>
+            </td>
+            <td>
+              <button class="btn btn-warning btn-sm me-1" (click)="select(emp)">Editar</button>
+              <button class="btn btn-danger btn-sm" (click)="delete(emp.id!)">Excluir</button>
+              <button class="btn btn-primary btn-sm ms-1">Ver Mapa</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</main>

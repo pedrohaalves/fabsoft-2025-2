@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore; 
 
 @Entity
 @Table(name = "vendas")
@@ -30,14 +31,16 @@ public class Venda {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fracao_id", referencedColumnName = "fracao_id")
+    @JsonIgnore 
     private Fracao fracao;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id")
-    @JsonBackReference
+    @JsonBackReference 
     private Cliente cliente;
 
     @OneToOne(mappedBy = "venda", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore 
     private Contrato contrato;
 
     @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -115,6 +118,4 @@ public class Venda {
     public void setParcelas(List<Parcela> parcelas) {
         this.parcelas = parcelas;
     }
-
-    
 }
