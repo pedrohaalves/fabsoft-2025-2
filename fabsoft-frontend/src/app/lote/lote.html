@@ -3,6 +3,7 @@
   <div class="card mb-4">
     <div class="card-header bg-dark text-white">Gerenciar Lotes</div>
     <div class="card-body">
+      
       <div class="row">
         
         <div class="col-md-6 mb-3">
@@ -31,21 +32,31 @@
         </div>
 
         <div class="col-md-4 mb-3">
-          <label class="form-label">Status (Tipo):</label>
+          <label class="form-label">Situação Financeira / Status:</label>
           <select class="form-select" [(ngModel)]="lote.tipo">
-            <option value="Disponível">Disponível</option>
-            <option value="Reservado">Reservado</option>
-            <option value="Vendido">Vendido</option>
+            <option value="Disponível">Disponível (Verde)</option>
+            <option value="Vendido">Vendido - Em dia (Azul)</option>
+            <option value="Atrasado">Vendido - Em Atraso (Amarelo)</option>
+            <option value="Reservado">Reservado (Cinza)</option>
           </select>
         </div>
+
+      </div> <div class="mt-2">
+        <button class="btn btn-success" (click)="save()">Salvar Lote</button>
+        <button class="btn btn-secondary ms-2" (click)="clean()">Cancelar</button>
       </div>
 
-      <button class="btn btn-success" (click)="save()">Salvar Lote</button>
-      <button class="btn btn-secondary ms-2" (click)="clean()">Cancelar</button>
     </div>
   </div>
 
   <h3 class="mb-3">Mapa de Lotes</h3>
+
+  <div class="d-flex gap-3 mb-4">
+    <span class="badge bg-success p-2">Disponível</span>
+    <span class="badge bg-primary p-2">Vendido (Em dia)</span>
+    <span class="badge bg-warning text-dark p-2">Vendido (Atrasado)</span>
+    <span class="badge bg-secondary p-2">Reservado</span>
+  </div>
   
   <div class="row">
     <div class="col-md-3 col-sm-6 mb-4" *ngFor="let item of listaLotes">
@@ -54,7 +65,7 @@
           <h5 class="card-title fw-bold">{{ item.identificador }}</h5>
           <p class="card-text mb-1">{{ item.areaM2 }} m²</p>
           <p class="card-text mb-2">R$ {{ item.valorTotalBase }}</p>
-          <small class="d-block mb-3">{{ item.empreendimento?.nome }}</small>
+          <small class="d-block mb-3 fw-bold">{{ item.empreendimento?.nome }}</small>
           
           <button class="btn btn-light btn-sm w-100" (click)="select(item)">
             Editar / Detalhes

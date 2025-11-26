@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4 shadow-sm">
+  <!-- Usando container para centralizar um pouco, ou container-fluid para largura total -->
+  <div class="container-fluid px-5"> 
+    
+    <!-- LOGO: 'me-auto' empurra o menu para a direita, 'me-5' dá margem fixa -->
+    <!-- Vou usar me-auto aqui para separar bem a logo do menu se a tela for grande -->
+    <a class="navbar-brand fw-bold fs-3 me-5" href="#">
+      FabSoft Imóveis
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- UL: 'gap-5' aumenta bastante o espaço entre os links (1, 2, 3, 4, 5) -->
+      <ul class="navbar-nav gap-5 ms-4">
+        
+        <li class="nav-item">
+          <a class="nav-link text-uppercase fw-bold" routerLink="/empreendimentos" routerLinkActive="active">
+            Empreendimentos
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link text-uppercase fw-bold" routerLink="/lotes" routerLinkActive="active">
+            Mapa de Lotes
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link text-uppercase fw-bold" routerLink="/clientes" routerLinkActive="active">
+            Clientes
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link text-uppercase fw-bold" routerLink="/vendas" routerLinkActive="active">
+            Vendas
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Container para o conteúdo das páginas não ficar colado na borda -->
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

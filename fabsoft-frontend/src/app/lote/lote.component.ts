@@ -85,7 +85,7 @@ export class LoteComponent implements OnInit {
 
   select(lote: Lote): void {
     this.lote = { ...lote };
-    // Ajuste para o select comparar objetos corretamente
+    
     if(lote.empreendimento) {
       this.lote.empreendimento = this.listaEmpreendimentos.find(e => e.id === lote.empreendimento?.id);
     }
@@ -101,10 +101,19 @@ export class LoteComponent implements OnInit {
     };
   }
 
-  // Função para definir a cor do CARD baseado no Texto
+  // Função atualizada para o Mapa de Calor Financeiro
   getCorStatus(tipo: string): string {
-    if (tipo === 'Vendido') return 'bg-danger text-white'; // Vermelho
-    if (tipo === 'Reservado') return 'bg-warning text-dark'; // Amarelo
-    return 'bg-success text-white'; // Verde (Disponível)
+    switch (tipo) {
+      case 'Disponível':
+        return 'bg-success text-white'; // Verde (Tudo certo para vender)
+      case 'Vendido':
+        return 'bg-primary text-white'; // Azul (Vendido e pagando certinho)
+      case 'Atrasado':
+        return 'bg-warning text-dark';  // Amarelo (Alerta: Inadimplente!)
+      case 'Reservado':
+        return 'bg-secondary text-white'; // Cinza (Aguardando)
+      default:
+        return 'bg-light text-dark'; // Branco (Outros)
+    }
   }
-}
+  }

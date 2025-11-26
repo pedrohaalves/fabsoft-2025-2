@@ -1,3 +1,5 @@
+import { Venda } from "./venda";
+
 export interface Cliente {
     id?: number;
     nomeCompleto: string;
@@ -5,4 +7,5 @@ export interface Cliente {
     email: string;
     telefone: string;
     endereco: string;
+    vendas?: Venda[]; 
 }

@@ -1,0 +1,88 @@
+<main class="container mt-3">
+
+  <div class="card mb-4 border-success">
+    <div class="card-header bg-success text-white fw-bold">
+      Registrar Nova Venda
+    </div>
+    <div class="card-body">
+      
+      <div class="row">
+        
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Cliente:</label>
+          <select class="form-select" [(ngModel)]="venda.cliente">
+            <option [ngValue]="undefined">Selecione o Cliente...</option>
+            <option *ngFor="let c of listaClientes" [ngValue]="c">
+              {{ c.nomeCompleto }} (CPF: {{ c.cpfCnpj }})
+            </option>
+          </select>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Lote:</label>
+          <select class="form-select" [(ngModel)]="venda.lote">
+            <option [ngValue]="undefined">Selecione o Lote...</option>
+            <option *ngFor="let l of listaLotes" [ngValue]="l">
+              {{ l.identificador }} - {{ l.empreendimento?.nome }} (R$ {{ l.valorTotalBase }})
+            </option>
+          </select>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Valor Negociado (R$):</label>
+          <input type="number" class="form-control" [(ngModel)]="venda.valorTotalNegociado">
+          <small class="text-muted">Deixe 0 para usar o valor base do lote.</small>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Forma de Pagamento:</label>
+          <select class="form-select" [(ngModel)]="venda.formaPagamento">
+            <option value="">Selecione...</option>
+            <option value="À Vista">À Vista</option>
+            <option value="Parcelado 12x">Parcelado 12x</option>
+            <option value="Parcelado 24x">Parcelado 24x</option>
+            <option value="Parcelado 36x">Parcelado 36x</option>
+            <option value="Financiamento Bancário">Financiamento Bancário</option>
+          </select>
+        </div>
+
+      </div>
+
+      <button class="btn btn-success w-100 mt-2" (click)="save()">
+        💰 FINALIZAR VENDA
+      </button>
+
+    </div>
+  </div>
+
+  <h3 class="mb-3">Histórico de Vendas</h3>
+  
+  <table class="table table-hover shadow-sm">
+    <thead class="table-light">
+      <tr>
+        <th>ID</th>
+        <th>Cliente</th>
+        <th>Lote / Empreendimento</th>
+        <th>Valor (R$)</th>
+        <th>Pagamento</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let v of listaVendas">
+        <td>{{ v.id }}</td>
+        <td>{{ v.cliente?.nomeCompleto }}</td>
+        <td>
+          <strong>{{ v.lote?.identificador }}</strong> <br>
+          <small class="text-muted">{{ v.lote?.empreendimento?.nome }}</small>
+        </td>
+        <td class="text-success fw-bold">R$ {{ v.valorTotalNegociado }}</td>
+        <td>{{ v.formaPagamento }}</td>
+        <td>
+          <button class="btn btn-danger btn-sm" (click)="delete(v.id!)">Cancelar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</main>

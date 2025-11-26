@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Cliente } from '../model/cliente';
 
@@ -16,19 +16,22 @@ export class ClienteService {
     return this.http.get<Cliente[]>(this.API);
   }
 
-  findById(id: number): Observable<Cliente> {
-    return this.http.get<Cliente>(`${this.API}/${id}`);
-  }
-
   save(cliente: Cliente): Observable<Cliente> {
-    return this.http.post<Cliente>(this.API, cliente);
+    
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<Cliente>(this.API, cliente, { headers: headers });
   }
 
   update(cliente: Cliente): Observable<Cliente> {
-    return this.http.put<Cliente>(`${this.API}/${cliente.id}`, cliente);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<Cliente>(`${this.API}/${cliente.id}`, cliente, { headers: headers });
   }
 
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.API}/${id}`);
+  }
+  
+  findById(id: number): Observable<Cliente> {
+    return this.http.get<Cliente>(`${this.API}/${id}`);
   }
 }
