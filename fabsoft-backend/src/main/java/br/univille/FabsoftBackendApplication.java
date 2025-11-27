@@ -15,15 +15,14 @@ public class FabsoftBackendApplication {
 		SpringApplication.run(FabsoftBackendApplication.class, args);
 	}
 
-	// CONFIGURAÇÃO DE CORS DEFINITIVA
-	// Colocada aqui para garantir que o Spring carregue junto com a app
+	
 	@Bean
 	public CorsFilter corsFilter() {
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowCredentials(true);
-		config.addAllowedOriginPattern("*"); // Libera qualquer origem
-		config.addAllowedHeader("*");        // Libera qualquer header (incluindo Content-Type)
-		config.addAllowedMethod("*");        // Libera GET, POST, PUT, DELETE...
+		config.addAllowedOriginPattern("*"); 
+		config.addAllowedHeader("*");        
+		config.addAllowedMethod("*");        
 
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", config);

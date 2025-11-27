@@ -31,7 +31,7 @@ public class ClienteController {
     }
 
     @PostMapping
-@ResponseStatus(HttpStatus.CREATED) // Retorna 201 Created
+@ResponseStatus(HttpStatus.CREATED) 
 public Cliente createCliente(@RequestBody Cliente cliente) {
     return service.save(cliente);
 }

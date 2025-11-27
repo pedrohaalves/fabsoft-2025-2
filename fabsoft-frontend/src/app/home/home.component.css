@@ -1,7 +1,7 @@
 .mapa-container {
-    position: relative; /* Importante para os filhos absolutos */
+    position: relative; 
     width: 100%;
-    max-width: 1000px; /* Tamanho máximo do mapa na tela */
+    max-width: 1000px; 
     margin: 0 auto;
     border: 5px solid #333;
     border-radius: 10px;
@@ -13,12 +13,11 @@
     display: block;
 }
 
-/* O Quadradinho Interativo */
 .lote-marker {
     position: absolute;
-    width: 3.5%;  /* Largura do quadradinho */
-    height: 5.5%; /* Altura do quadradinho */
-    opacity: 0.8; /* Levemente transparente para ver o fundo */
+    width: 3.5%;  
+    height: 5.5%; 
+    opacity: 0.8; 
     border: 2px solid white;
     cursor: pointer;
     transition: transform 0.2s, opacity 0.2s;
@@ -26,12 +25,11 @@
 }
 
 .lote-marker:hover {
-    transform: scale(1.2); /* Aumenta ao passar o mouse */
+    transform: scale(1.2); 
     opacity: 1;
     z-index: 10;
 }
 
-/* Legenda flutuante */
 .legenda-box {
     margin-top: 20px;
     padding: 15px;

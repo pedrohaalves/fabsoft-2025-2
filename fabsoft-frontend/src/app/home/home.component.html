@@ -2,7 +2,6 @@
   
   <h1 class="mb-4 text-primary fw-bold">Visão Geral</h1>
 
-  <!-- SELETOR DE EMPREENDIMENTO -->
   <div class="row justify-content-center mb-4">
     <div class="col-md-6">
       <div class="input-group">
@@ -17,8 +16,7 @@
       </div>
     </div>
   </div>
-
-  <!-- ÁREA DO MAPA -->
+  
   <div class="mapa-container shadow-lg" *ngIf="imagemAtual; else semMapa">
     
     <img [src]="imagemAtual" 
@@ -26,7 +24,6 @@
          class="imagem-planta"
          (click)="obterCoordenadas($event)">
 
-    <!-- CORREÇÃO AQUI: Usando 'posicoesAtuais' em vez de 'posicoesLotes' -->
     <div *ngFor="let item of posicoesAtuais"
          class="lote-marker"
          [ngClass]="getCor(item.identificador)"
@@ -40,7 +37,7 @@
 
   </div>
 
-  <!-- MENSAGEM SE NÃO TIVER MAPA -->
+
   <ng-template #semMapa>
     <div class="alert alert-warning p-5">
       <h4><i class="bi bi-exclamation-triangle"></i> Planta não disponível</h4>
@@ -48,7 +45,7 @@
     </div>
   </ng-template>
 
-  <!-- LEGENDA -->
+
   <div class="legenda-box shadow-sm mt-4" *ngIf="imagemAtual">
     <div class="legenda-item"><div class="cor-box bg-success"></div> Disponível</div>
     <div class="legenda-item"><div class="cor-box bg-primary"></div> Vendido (Em dia)</div>

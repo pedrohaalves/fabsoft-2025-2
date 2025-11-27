@@ -69,10 +69,9 @@ export class VendaComponent implements OnInit {
       return;
     }
 
-    // Preenche data atual (necessário para o Java LocalDate)
     this.venda.dataVenda = new Date().toISOString().split('T')[0];
 
-    // Preenche valor se estiver zerado
+    
     if (this.venda.valorTotalNegociado === 0 && this.venda.lote.valorTotalBase) {
       this.venda.valorTotalNegociado = this.venda.lote.valorTotalBase;
     }
@@ -90,7 +89,7 @@ export class VendaComponent implements OnInit {
     });
   }
 
-  // O ERRO ESTAVA AQUI: ESTE MÉTODO ESTAVA FALTANDO!
+ 
   delete(id: number): void {
     if (confirm('Deseja cancelar esta venda?')) {
       this.service.delete(id).subscribe({

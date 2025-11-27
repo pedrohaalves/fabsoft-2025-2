@@ -13,7 +13,7 @@ import { ClienteService } from '../service/cliente.service';
 })
 export class ClienteComponent implements OnInit {
 
-  // Objeto que guarda os dados do formulário
+  
   cliente: Cliente = {
     nomeCompleto: '',
     cpfCnpj: '',
@@ -23,7 +23,7 @@ export class ClienteComponent implements OnInit {
   };
 
   listaClientes: Cliente[] = [];
-  modoEdicao: boolean = false; // Controla se mostra a Tabela (false) ou Formulário (true)
+  modoEdicao: boolean = false; 
 
   constructor(private service: ClienteService) {}
 
@@ -31,7 +31,7 @@ export class ClienteComponent implements OnInit {
     this.findAll();
   }
 
-  // 1. Busca todos os clientes do Backend
+  
   findAll(): void {
     this.service.findAll().subscribe({
       next: (data) => this.listaClientes = data,
@@ -42,28 +42,26 @@ export class ClienteComponent implements OnInit {
     });
   }
 
-  // 2. Prepara para cadastrar NOVO (Limpa e mostra formulário)
+  
   iniciarCadastro(): void {
     this.clean();
     this.modoEdicao = true;
   }
 
-  // 3. Prepara para EDITAR (Copia dados e mostra formulário)
+  
   iniciarEdicao(cliente: Cliente): void {
-    this.cliente = { ...cliente }; // Copia para não alterar a tabela visualmente antes de salvar
+    this.cliente = { ...cliente }; 
     this.modoEdicao = true;
   }
 
-  // 4. Botão Cancelar (Volta para lista)
+  
   cancelar(): void {
     this.modoEdicao = false;
     this.clean();
   }
 
-  // 5. Salvar (Create ou Update)
   save(): void {
-    // SANITIZAÇÃO: Cria um objeto novo apenas com os dados puros
-    // Isso evita enviar listas extras (vendas) que podem dar erro no Java
+    
     const clienteLimpo: Cliente = {
       nomeCompleto: this.cliente.nomeCompleto,
       cpfCnpj: this.cliente.cpfCnpj,
@@ -73,15 +71,15 @@ export class ClienteComponent implements OnInit {
     };
 
     if (this.cliente.id) {
-      // Se tem ID, é atualização (PUT)
+      
       clienteLimpo.id = this.cliente.id;
       
       this.service.update(clienteLimpo).subscribe({
         next: () => {
           alert('Cliente atualizado com sucesso!');
-          this.modoEdicao = false; // Volta pra lista
-          this.findAll(); // Recarrega a lista
-          this.clean(); // Limpa o formulário
+          this.modoEdicao = false; 
+          this.findAll(); 
+          this.clean(); 
         },
         error: (err) => {
           console.error('Erro ao atualizar:', err);
@@ -89,13 +87,13 @@ export class ClienteComponent implements OnInit {
         }
       });
     } else {
-      // Se não tem ID, é novo cadastro (POST)
+      
       this.service.save(clienteLimpo).subscribe({
         next: () => {
           alert('Cliente cadastrado com sucesso!');
-          this.modoEdicao = false; // Volta pra lista
-          this.findAll(); // Recarrega a lista
-          this.clean(); // Limpa o formulário
+          this.modoEdicao = false; 
+          this.findAll(); 
+          this.clean(); 
         },
         error: (err) => {
           console.error('Erro ao cadastrar:', err);
@@ -105,7 +103,7 @@ export class ClienteComponent implements OnInit {
     }
   }
 
-  // 6. Excluir
+  
   delete(id: number): void {
     if (confirm('Tem certeza que deseja excluir este cliente?')) {
       this.service.delete(id).subscribe({
@@ -118,7 +116,6 @@ export class ClienteComponent implements OnInit {
     }
   }
 
-  // 7. Método para limpar o formulário
   clean(): void {
     this.cliente = {
       nomeCompleto: '',

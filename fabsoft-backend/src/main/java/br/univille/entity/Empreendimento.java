@@ -19,13 +19,12 @@ public class Empreendimento {
     private String descricao;
     private String status;
 
-    // Removemos @JsonManagedReference e usamos @JsonIgnore na lista
-    // para garantir que a lista de lotes não cause peso ou loops desnecessários
+    
     @OneToMany(mappedBy = "empreendimento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore 
     private List<Lote> lotes;
 
-    // Getters e Setters
+ 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getNome() { return nome; }

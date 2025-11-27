@@ -1,16 +1,16 @@
-/* --- ESTILO DOS CARTÕES (CARDS) --- */
+
 .card {
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease;
-    border: none; /* Remove a borda padrão para usar sombras */
+    border: none; 
 }
 
-/* Efeito ao passar o rato em cima do cartão */
+
 .card:hover {
-    transform: translateY(-5px); /* Levanta um pouco */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.15); /* Sombra mais forte */
+    transform: translateY(-5px); 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15); 
 }
 
-/* Ajuste para o texto dentro dos cartões coloridos */
+
 .card-body h5 {
     font-size: 1.1rem;
     margin-bottom: 0.5rem;
@@ -20,7 +20,7 @@
     font-size: 0.9rem;
 }
 
-/* Botão dentro do cartão */
+
 .card .btn-light {
     border: 1px solid rgba(0,0,0,0.1);
     font-weight: 500;
@@ -30,35 +30,33 @@
     background-color: #e2e6ea;
 }
 
-/* --- CORES PERSONALIZADAS PARA OS CARTÕES --- */
-/* Estas classes garantem que a cor de fundo funcione mesmo se o Bootstrap falhar */
 .bg-success {
-    background-color: #198754 !important; /* Verde */
+    background-color: #198754 !important; 
     color: white;
 }
 
 .bg-primary {
-    background-color: #0d6efd !important; /* Azul */
+    background-color: #0d6efd !important; 
     color: white;
 }
 
 .bg-warning {
-    background-color: #ffc107 !important; /* Amarelo */
-    color: #212529; /* Texto escuro para contraste */
+    background-color: #ffc107 !important; 
+    color: #212529; 
 }
 
 .bg-dark {
-    background-color: #212529 !important; /* Preto/Cinza Escuro */
+    background-color: #212529 !important; 
     color: white;
     border: 1px solid #444;
 }
 
 .bg-secondary {
-    background-color: #6c757d !important; /* Cinza Médio */
+    background-color: #6c757d !important; 
     color: white;
 }
 
-/* --- LEGENDA --- */
+
 .legenda-box {
     background-color: #f8f9fa;
     padding: 10px 15px;
@@ -69,22 +67,21 @@
     gap: 10px;
 }
 
-/* Ajuste dos badges da legenda para ficarem todos do mesmo tamanho */
+
 .badge {
     font-size: 0.9rem;
     font-weight: 500;
     padding: 8px 12px;
-    min-width: 100px; /* Largura mínima para ficarem alinhados */
+    min-width: 100px; 
     display: inline-block;
     text-align: center;
 }
 
-/* Borda para o badge preto ficar visível em fundo branco */
+
 .badge.bg-dark {
     border: 1px solid #000;
 }
 
-/* --- FORMULÁRIO --- */
 .form-label {
     font-weight: 500;
     color: #495057;

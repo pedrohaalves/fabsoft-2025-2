@@ -26,19 +26,18 @@ public class Lote {
     
     private String tipo;
 
-    // AQUI ESTAVA O PROBLEMA: @JsonBackReference escondia o empreendimento.
-    // Mudei para @JsonIgnoreProperties("lotes") para mostrar o empreendimento mas cortar o loop.
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "empreendimento_id")
     @JsonIgnoreProperties("lotes") 
     private Empreendimento empreendimento;
 
-    // Ignora frações por enquanto para evitar complexidade
+
     @OneToMany(mappedBy = "lote", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore 
     private List<Fracao> fracoes;
 
-    // Getters e Setters
+    
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public String getIdentificador() { return identificador; }

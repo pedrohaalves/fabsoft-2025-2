@@ -54,7 +54,6 @@
 
   <h3 class="mb-3">Lista de Lotes Cadastrados</h3>
   
-  <!-- LEGENDA -->
   <div class="d-flex gap-3 mb-4 flex-wrap">
     <span class="badge bg-success p-2">Disponível</span>
     <span class="badge bg-primary p-2">Vendido (Em dia)</span>
@@ -62,10 +61,9 @@
     <span class="badge bg-dark p-2 border border-light">Reservado</span>
   </div>
   
-  <!-- GRID DE LOTES -->
+
   <div class="row">
     <div class="col-md-3 col-sm-6 mb-4" *ngFor="let item of listaLotes">
-      <!-- Aqui usamos a mesma lógica de cores da Home -->
       <div class="card text-center shadow-sm h-100" [ngClass]="getCorStatus(item.tipo)">
         <div class="card-body">
           <h5 class="card-title fw-bold">{{ item.identificador }}</h5>

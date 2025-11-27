@@ -30,7 +30,7 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // 1. Criar Empreendimento
+       
         Empreendimento emp = new Empreendimento();
         emp.setNome("Condomínio Bosque Imperial");
         emp.setLocalizacao("Zona Norte, Joinville-SC");
@@ -38,27 +38,27 @@ public class DataInitializer implements CommandLineRunner {
         emp.setStatus("Lançamento");
         empreendimentoRepository.save(emp);
 
-        // 2. Criar Lotes (COM OS NOMES CERTOS DO MAPA)
         
-        // Lote 1 - Disponível (Verde)
+        
+        
         Lote l1 = new Lote();
-        l1.setIdentificador("Quadra A - Lote 01"); // <--- NOME IGUAL AO DO TS
+        l1.setIdentificador("Quadra A - Lote 01");
         l1.setAreaM2(350.0);
         l1.setValorTotalBase(new BigDecimal("180000"));
         l1.setTipo("Disponível");
         l1.setEmpreendimento(emp);
         loteRepository.save(l1);
 
-        // Lote 2 - Vendido (Azul)
+        
         Lote l2 = new Lote();
-        l2.setIdentificador("Quadra A - Lote 02"); // <--- NOME IGUAL AO DO TS
+        l2.setIdentificador("Quadra A - Lote 02"); 
         l2.setAreaM2(365.0);
         l2.setValorTotalBase(new BigDecimal("195000"));
-        l2.setTipo("Vendido"); // Já nasce vendido
+        l2.setTipo("Vendido"); 
         l2.setEmpreendimento(emp);
         loteRepository.save(l2);
 
-        // Lote 3 - Atrasado (Amarelo)
+       
         Lote l3 = new Lote();
         l3.setIdentificador("Quadra A - Lote 03");
         l3.setAreaM2(400.0);
@@ -67,7 +67,7 @@ public class DataInitializer implements CommandLineRunner {
         l3.setEmpreendimento(emp);
         loteRepository.save(l3);
 
-        // 3. Criar Cliente (Ana Paula)
+        
         Cliente ana = new Cliente();
         ana.setNomeCompleto("Ana Paula");
         ana.setCpfCnpj("111.222.333-44");
@@ -76,10 +76,10 @@ public class DataInitializer implements CommandLineRunner {
         ana.setEndereco("Rua das Flores, 123");
         clienteRepository.save(ana);
 
-        // 4. Criar a Venda (Vincular Ana Paula ao Lote 2)
+        
         Venda venda = new Venda();
         venda.setCliente(ana);
-        venda.setLote(l2); // Vendeu o Lote 2
+        venda.setLote(l2); 
         venda.setDataVenda(LocalDate.now());
         venda.setValorTotalNegociado(l2.getValorTotalBase());
         venda.setFormaPagamento("Financiamento");

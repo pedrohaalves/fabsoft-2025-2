@@ -38,7 +38,6 @@ public class Venda {
     @JsonIgnoreProperties("vendas")
     private Cliente cliente;
 
-    // --- NOVO ATRIBUTO LOTE ---
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "lote_id")
     @JsonIgnoreProperties({"vendas", "empreendimento"}) 
@@ -52,7 +51,6 @@ public class Venda {
     @JsonIgnore
     private List<Parcela> parcelas;
 
-    // --- GETTERS E SETTERS ---
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -75,7 +73,6 @@ public class Venda {
     public Cliente getCliente() { return cliente; }
     public void setCliente(Cliente cliente) { this.cliente = cliente; }
 
-    // --- GETTERS E SETTERS DO LOTE (Faltavam estes!) ---
     public Lote getLote() { return lote; }
     public void setLote(Lote lote) { this.lote = lote; }
 

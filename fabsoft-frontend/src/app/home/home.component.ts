@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms'; // Necessário para o <select>
+import { FormsModule } from '@angular/forms'; 
 import { LoteService } from '../service/lote.service';
 import { EmpreendimentoService } from '../service/empreendimento.service';
 import { Lote } from '../model/lote';
@@ -19,21 +19,20 @@ export class HomeComponent implements OnInit {
   listaLotes: Lote[] = [];
   listaEmpreendimentos: Empreendimento[] = [];
   
-  // Controle da seleção
+  
   empSelecionadoId: number | undefined;
   
-  // Configuração atual (imagem e lotes) que está sendo exibida
+  
   imagemAtual: string = '';
   posicoesAtuais: any[] = [];
 
-  // BANCO DE DADOS DE MAPAS (Simulado no Front)
-  // Aqui você define qual imagem e quais coordenadas pertencem a qual ID de Empreendimento
+  
   mapasConfig: any = {
-    // ID 1 (O seu empreendimento principal)
+    
     1: {
       imagem: 'planta.png',
       posicoes: [
-        // --- SEUS LOTES CONFIGURADOS ---
+       
         { identificador: 'Quadra A - Lote 01', top: '18%', left: '5.5%', },
         { identificador: 'Quadra A - Lote 02', top: '28%', left: '5.5%',  },
         { identificador: 'Quadra A - Lote 03', top: '38%', left: '5%',  },
@@ -60,8 +59,7 @@ export class HomeComponent implements OnInit {
         { identificador: 'Quadra D - Lote 07', top: '92%', left: '57%',  },
       ]
     }
-    // Se tiver ID 2, adicione aqui:
-    // 2: { imagem: 'outra-planta.jpg', posicoes: [...] }
+   
   };
 
   constructor(
@@ -70,22 +68,21 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // 1. Carrega Lotes
+    
     this.loteService.findAll().subscribe(dados => {
       this.listaLotes = dados;
     });
 
-    // 2. Carrega Empreendimentos e seleciona o primeiro
+    
     this.empService.findAll().subscribe(dados => {
       this.listaEmpreendimentos = dados;
       if (this.listaEmpreendimentos.length > 0) {
-        // Seleciona o primeiro automaticamente
+        
         this.selecionarEmpreendimento(this.listaEmpreendimentos[0].id!);
       }
     });
   }
 
-  // Função chamada quando o usuário troca o select
   selecionarEmpreendimento(id: number): void {
     this.empSelecionadoId = id;
     const config = this.mapasConfig[id];
@@ -94,15 +91,14 @@ export class HomeComponent implements OnInit {
       this.imagemAtual = config.imagem;
       this.posicoesAtuais = config.posicoes;
     } else {
-      // Caso não tenha mapa configurado para esse ID
+      
       this.imagemAtual = '';
       this.posicoesAtuais = [];
     }
   }
 
   getLotePorIdentificador(identificador: string): Lote | undefined {
-    // Filtra para garantir que pegamos o lote do empreendimento certo
-    // (Caso existam nomes iguais em empreendimentos diferentes)
+    
     return this.listaLotes.find(l => 
       l.identificador === identificador && 
       l.empreendimento?.id == this.empSelecionadoId

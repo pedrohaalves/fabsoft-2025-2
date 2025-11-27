@@ -1,47 +1,64 @@
 <div class="container mt-4">
 
+  
   <div *ngIf="!modoEdicao">
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h3>Meus Clientes</h3>
       <button class="btn btn-primary" (click)="iniciarCadastro()">
-        <i class="bi bi-plus-lg"></i> Novo Cliente
+        + Novo Cliente
       </button>
     </div>
 
     <div class="card shadow-sm">
       <div class="card-body p-0">
-        <table class="table table-hover mb-0">
-          <thead class="table-light">
-            <tr>
-              <th>ID</th>
-              <th>Nome</th>
-              <th>CPF/CNPJ</th>
-              <th>Lote</th>
-              <th class="text-end">Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let c of listaClientes">
-              <td>{{ c.id }}</td>
-              <td>{{ c.nomeCompleto }}</td>
-              <td>{{ c.cpfCnpj }}</td>
-              <td>
-                <span *ngIf="c.vendas && c.vendas.length > 0" class="badge bg-success">
-                  {{ c.vendas[0].lote?.identificador }}
-                </span>
-              </td>
-              <td class="text-end">
-                <button class="btn btn-warning btn-sm me-2" (click)="iniciarEdicao(c)">Editar</button>
-                <button class="btn btn-danger btn-sm" (click)="delete(c.id!)">Excluir</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-responsive"> 
+          <table class="table table-hover mb-0 align-middle">
+            <thead class="table-light">
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CPF/CNPJ</th>
+                <th>E-mail</th>      
+                <th>Telefone</th>    
+                <th>Endereço</th>    
+                <th>Lote</th>
+                <th class="text-end">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let c of listaClientes">
+                <td>{{ c.id }}</td>
+                <td class="fw-bold">{{ c.nomeCompleto }}</td>
+                <td>{{ c.cpfCnpj }}</td>
+                <td>{{ c.email }}</td>      
+                <td>{{ c.telefone }}</td>    
+                <td>{{ c.endereco }}</td>  
+                <td>
+                  
+                  <span *ngIf="c.vendas && c.vendas.length > 0" class="badge bg-success">
+                    {{ c.vendas[0].lote?.identificador }}
+                  </span>
+                  <span *ngIf="!c.vendas || c.vendas.length === 0" class="text-muted small">
+                    -
+                  </span>
+                </td>
+                <td class="text-end" style="min-width: 150px;"> 
+                  <button class="btn btn-warning btn-sm me-2" (click)="iniciarEdicao(c)">
+                    Editar
+                  </button>
+                  <button class="btn btn-danger btn-sm" (click)="delete(c.id!)">
+                    Excluir
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
 
-
+  
   <div *ngIf="modoEdicao">
     <div class="card shadow">
       <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
@@ -54,7 +71,6 @@
             <label class="form-label">Nome Completo</label>
             <input type="text" class="form-control" [(ngModel)]="cliente.nomeCompleto" name="nome" required>
           </div>
-          
           
           <div class="row">
             <div class="col-md-6 mb-3">

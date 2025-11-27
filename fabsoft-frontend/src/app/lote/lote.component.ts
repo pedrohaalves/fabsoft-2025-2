@@ -101,19 +101,19 @@ export class LoteComponent implements OnInit {
     };
   }
 
-  // Função atualizada para o Mapa de Calor Financeiro
+  
   getCorStatus(tipo: string): string {
     switch (tipo) {
       case 'Disponível':
-        return 'bg-success text-white'; // Verde (Tudo certo para vender)
+        return 'bg-success text-white'; 
       case 'Vendido':
-        return 'bg-primary text-white'; // Azul (Vendido e pagando certinho)
+        return 'bg-primary text-white'; 
       case 'Atrasado':
-        return 'bg-warning text-dark';  // Amarelo (Alerta: Inadimplente!)
+        return 'bg-warning text-dark';  
       case 'Reservado':
-        return 'bg-secondary text-white'; // Cinza (Aguardando)
+        return 'bg-secondary text-white'; 
       default:
-        return 'bg-light text-dark'; // Branco (Outros)
+        return 'bg-light text-dark'; 
     }
   }
   }
