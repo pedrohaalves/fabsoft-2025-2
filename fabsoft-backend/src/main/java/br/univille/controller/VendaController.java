@@ -1,6 +1,6 @@
 package br.univille.controller;
 
-import br.univille.entity.Venda; // Importamos a entidade Venda
+import br.univille.entity.Venda; 
 import br.univille.service.VendaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class VendaController {
     }
 
     @PostMapping
-    public ResponseEntity<Venda> createVenda(@RequestBody Venda venda) { // Recebe Venda diretamente
+    public ResponseEntity<Venda> createVenda(@RequestBody Venda venda) { 
         Venda novaVenda = service.criarVenda(venda);
         return ResponseEntity.ok(novaVenda);
     }

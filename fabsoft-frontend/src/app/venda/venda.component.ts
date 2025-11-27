@@ -15,7 +15,7 @@ import { LoteService } from '../service/lote.service';
   standalone: true,
   imports: [CommonModule, FormsModule, HttpClientModule],
   templateUrl: './venda.html',
-  styleUrl: './venda.css',
+  styleUrls: ['./venda.css'],
   providers: [VendaService, ClienteService, LoteService]
 })
 export class VendaComponent implements OnInit {
@@ -46,54 +46,56 @@ export class VendaComponent implements OnInit {
 
   findAllVendas(): void {
     this.service.findAll().subscribe({
-      next: (data: Venda[]) => this.listaVendas = data,
-      error: (err: any) => alert('Erro ao carregar vendas.')
+      next: (data) => this.listaVendas = data,
+      error: () => alert('Erro ao carregar vendas.')
     });
   }
 
   findAllClientes(): void {
     this.clienteService.findAll().subscribe({
-      next: (data: Cliente[]) => this.listaClientes = data
+      next: (data) => this.listaClientes = data
     });
   }
 
   findAllLotes(): void {
     this.loteService.findAll().subscribe({
-      next: (data: Lote[]) => this.listaLotes = data
+      next: (data) => this.listaLotes = data
     });
   }
 
   save(): void {
     if (!this.venda.cliente || !this.venda.lote) {
-      alert('Por favor, selecione o Cliente e o Lote!');
+      alert('Selecione Cliente e Lote!');
       return;
     }
 
-    
+    // Preenche data atual (necessário para o Java LocalDate)
     this.venda.dataVenda = new Date().toISOString().split('T')[0];
 
+    // Preenche valor se estiver zerado
     if (this.venda.valorTotalNegociado === 0 && this.venda.lote.valorTotalBase) {
       this.venda.valorTotalNegociado = this.venda.lote.valorTotalBase;
     }
 
     this.service.save(this.venda).subscribe({
       next: () => {
-        alert('Venda realizada com sucesso!');
+        alert('Venda realizada!');
         this.findAllVendas();
         this.clean();
       },
-      error: (err: any) => { 
+      error: (err) => {
         console.error(err);
         alert('Erro ao salvar venda.');
       }
     });
   }
 
+  // O ERRO ESTAVA AQUI: ESTE MÉTODO ESTAVA FALTANDO!
   delete(id: number): void {
     if (confirm('Deseja cancelar esta venda?')) {
       this.service.delete(id).subscribe({
         next: () => this.findAllVendas(),
-        error: () => alert('Erro ao excluir.')
+        error: () => alert('Erro ao excluir venda')
       });
     }
   }

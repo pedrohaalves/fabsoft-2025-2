@@ -1,0 +1,96 @@
+/* --- ESTILO DOS CARTÕES (CARDS) --- */
+.card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease;
+    border: none; /* Remove a borda padrão para usar sombras */
+}
+
+/* Efeito ao passar o rato em cima do cartão */
+.card:hover {
+    transform: translateY(-5px); /* Levanta um pouco */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15); /* Sombra mais forte */
+}
+
+/* Ajuste para o texto dentro dos cartões coloridos */
+.card-body h5 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-body p {
+    font-size: 0.9rem;
+}
+
+/* Botão dentro do cartão */
+.card .btn-light {
+    border: 1px solid rgba(0,0,0,0.1);
+    font-weight: 500;
+}
+
+.card .btn-light:hover {
+    background-color: #e2e6ea;
+}
+
+/* --- CORES PERSONALIZADAS PARA OS CARTÕES --- */
+/* Estas classes garantem que a cor de fundo funcione mesmo se o Bootstrap falhar */
+.bg-success {
+    background-color: #198754 !important; /* Verde */
+    color: white;
+}
+
+.bg-primary {
+    background-color: #0d6efd !important; /* Azul */
+    color: white;
+}
+
+.bg-warning {
+    background-color: #ffc107 !important; /* Amarelo */
+    color: #212529; /* Texto escuro para contraste */
+}
+
+.bg-dark {
+    background-color: #212529 !important; /* Preto/Cinza Escuro */
+    color: white;
+    border: 1px solid #444;
+}
+
+.bg-secondary {
+    background-color: #6c757d !important; /* Cinza Médio */
+    color: white;
+}
+
+/* --- LEGENDA --- */
+.legenda-box {
+    background-color: #f8f9fa;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Ajuste dos badges da legenda para ficarem todos do mesmo tamanho */
+.badge {
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 8px 12px;
+    min-width: 100px; /* Largura mínima para ficarem alinhados */
+    display: inline-block;
+    text-align: center;
+}
+
+/* Borda para o badge preto ficar visível em fundo branco */
+.badge.bg-dark {
+    border: 1px solid #000;
+}
+
+/* --- FORMULÁRIO --- */
+.form-label {
+    font-weight: 500;
+    color: #495057;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}

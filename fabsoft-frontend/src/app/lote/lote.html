@@ -17,7 +17,7 @@
         </div>
 
         <div class="col-md-6 mb-3">
-          <label class="form-label">Identificador (Ex: Quadra A - Lote 1):</label>
+          <label class="form-label">Identificador (Ex: Quadra A - Lote 01):</label>
           <input type="text" class="form-control" [(ngModel)]="lote.identificador">
         </div>
 
@@ -31,17 +31,20 @@
           <input type="number" class="form-control" [(ngModel)]="lote.valorTotalBase">
         </div>
 
+        <!-- AQUI ESTÁ A ATUALIZAÇÃO -->
         <div class="col-md-4 mb-3">
-          <label class="form-label">Situação Financeira / Status:</label>
+          <label class="form-label">Situação / Cor no Mapa:</label>
           <select class="form-select" [(ngModel)]="lote.tipo">
             <option value="Disponível">Disponível (Verde)</option>
             <option value="Vendido">Vendido - Em dia (Azul)</option>
             <option value="Atrasado">Vendido - Em Atraso (Amarelo)</option>
-            <option value="Reservado">Reservado (Cinza)</option>
+            <option value="Reservado">Reservado (Preto)</option>
           </select>
         </div>
 
-      </div> <div class="mt-2">
+      </div>
+
+      <div class="mt-2">
         <button class="btn btn-success" (click)="save()">Salvar Lote</button>
         <button class="btn btn-secondary ms-2" (click)="clean()">Cancelar</button>
       </div>
@@ -49,17 +52,20 @@
     </div>
   </div>
 
-  <h3 class="mb-3">Mapa de Lotes</h3>
-
-  <div class="d-flex gap-3 mb-4">
+  <h3 class="mb-3">Lista de Lotes Cadastrados</h3>
+  
+  <!-- LEGENDA -->
+  <div class="d-flex gap-3 mb-4 flex-wrap">
     <span class="badge bg-success p-2">Disponível</span>
     <span class="badge bg-primary p-2">Vendido (Em dia)</span>
     <span class="badge bg-warning text-dark p-2">Vendido (Atrasado)</span>
-    <span class="badge bg-secondary p-2">Reservado</span>
+    <span class="badge bg-dark p-2 border border-light">Reservado</span>
   </div>
   
+  <!-- GRID DE LOTES -->
   <div class="row">
     <div class="col-md-3 col-sm-6 mb-4" *ngFor="let item of listaLotes">
+      <!-- Aqui usamos a mesma lógica de cores da Home -->
       <div class="card text-center shadow-sm h-100" [ngClass]="getCorStatus(item.tipo)">
         <div class="card-body">
           <h5 class="card-title fw-bold">{{ item.identificador }}</h5>

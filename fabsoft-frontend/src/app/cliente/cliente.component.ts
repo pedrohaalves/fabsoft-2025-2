@@ -9,10 +9,11 @@ import { ClienteService } from '../service/cliente.service';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './cliente.component.html',
-  styleUrl: './cliente.component.css'
+  styleUrls: ['./cliente.component.css']
 })
 export class ClienteComponent implements OnInit {
 
+  // Objeto que guarda os dados do formulário
   cliente: Cliente = {
     nomeCompleto: '',
     cpfCnpj: '',
@@ -22,7 +23,7 @@ export class ClienteComponent implements OnInit {
   };
 
   listaClientes: Cliente[] = [];
-  modoEdicao: boolean = false; // Controla se mostra a tabela ou o formulário
+  modoEdicao: boolean = false; // Controla se mostra a Tabela (false) ou Formulário (true)
 
   constructor(private service: ClienteService) {}
 
@@ -30,70 +31,94 @@ export class ClienteComponent implements OnInit {
     this.findAll();
   }
 
-  // Busca todos os clientes do Backend
+  // 1. Busca todos os clientes do Backend
   findAll(): void {
     this.service.findAll().subscribe({
       next: (data) => this.listaClientes = data,
-      error: (err) => alert('Erro ao carregar clientes')
+      error: (err) => {
+        console.error('Erro ao carregar clientes:', err);
+        alert('Erro ao carregar clientes');
+      }
     });
   }
 
-  // Entra no modo de CRIAÇÃO (Limpa o formulário e esconde a tabela)
+  // 2. Prepara para cadastrar NOVO (Limpa e mostra formulário)
   iniciarCadastro(): void {
     this.clean();
     this.modoEdicao = true;
   }
 
-  // Entra no modo de EDIÇÃO (Preenche o formulário com os dados do cliente clicado)
+  // 3. Prepara para EDITAR (Copia dados e mostra formulário)
   iniciarEdicao(cliente: Cliente): void {
-    this.cliente = { ...cliente }; // Cria uma cópia para não alterar a lista visualmente antes de salvar
+    this.cliente = { ...cliente }; // Copia para não alterar a tabela visualmente antes de salvar
     this.modoEdicao = true;
   }
 
-  // Sai do modo de edição/criação e volta para a tabela
+  // 4. Botão Cancelar (Volta para lista)
   cancelar(): void {
     this.modoEdicao = false;
     this.clean();
   }
 
-  // Salva ou Atualiza
+  // 5. Salvar (Create ou Update)
   save(): void {
+    // SANITIZAÇÃO: Cria um objeto novo apenas com os dados puros
+    // Isso evita enviar listas extras (vendas) que podem dar erro no Java
+    const clienteLimpo: Cliente = {
+      nomeCompleto: this.cliente.nomeCompleto,
+      cpfCnpj: this.cliente.cpfCnpj,
+      email: this.cliente.email,
+      telefone: this.cliente.telefone,
+      endereco: this.cliente.endereco
+    };
+
     if (this.cliente.id) {
-      // ATUALIZAR
-      this.service.update(this.cliente).subscribe({
+      // Se tem ID, é atualização (PUT)
+      clienteLimpo.id = this.cliente.id;
+      
+      this.service.update(clienteLimpo).subscribe({
         next: () => {
           alert('Cliente atualizado com sucesso!');
-          this.modoEdicao = false; // Volta pra lista automaticamente
-          this.findAll(); // Recarrega a lista atualizada
-          this.clean();
+          this.modoEdicao = false; // Volta pra lista
+          this.findAll(); // Recarrega a lista
+          this.clean(); // Limpa o formulário
         },
-        error: (err) => alert('Erro ao atualizar cliente')
+        error: (err) => {
+          console.error('Erro ao atualizar:', err);
+          alert('Erro ao atualizar cliente.');
+        }
       });
     } else {
-      // CRIAR NOVO
-      this.service.save(this.cliente).subscribe({
+      // Se não tem ID, é novo cadastro (POST)
+      this.service.save(clienteLimpo).subscribe({
         next: () => {
           alert('Cliente cadastrado com sucesso!');
-          this.modoEdicao = false; // Volta pra lista automaticamente
-          this.findAll(); // Recarrega a lista atualizada
-          this.clean();
+          this.modoEdicao = false; // Volta pra lista
+          this.findAll(); // Recarrega a lista
+          this.clean(); // Limpa o formulário
         },
-        error: (err) => alert('Erro ao cadastrar cliente')
+        error: (err) => {
+          console.error('Erro ao cadastrar:', err);
+          alert('Erro ao cadastrar cliente.');
+        }
       });
     }
   }
 
-  // Exclui um cliente
+  // 6. Excluir
   delete(id: number): void {
     if (confirm('Tem certeza que deseja excluir este cliente?')) {
       this.service.delete(id).subscribe({
         next: () => this.findAll(),
-        error: (err) => alert('Erro ao excluir cliente')
+        error: (err) => {
+          console.error('Erro ao excluir:', err);
+          alert('Erro ao excluir cliente.');
+        }
       });
     }
   }
 
-  // Limpa o objeto cliente
+  // 7. Método para limpar o formulário
   clean(): void {
     this.cliente = {
       nomeCompleto: '',

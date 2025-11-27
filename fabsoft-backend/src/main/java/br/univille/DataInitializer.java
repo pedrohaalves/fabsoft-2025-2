@@ -1,111 +1,91 @@
 package br.univille;
 
-import br.univille.entity.*;
-import br.univille.repository.*;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.Arrays;
+import br.univille.entity.Cliente;
+import br.univille.entity.Empreendimento;
+import br.univille.entity.Lote;
+import br.univille.entity.Venda;
+import br.univille.repository.ClienteRepository;
+import br.univille.repository.EmpreendimentoRepository;
+import br.univille.repository.LoteRepository;
+import br.univille.repository.VendaRepository;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
 
     @Autowired
+    private ClienteRepository clienteRepository;
+    @Autowired
     private EmpreendimentoRepository empreendimentoRepository;
     @Autowired
     private LoteRepository loteRepository;
     @Autowired
-    private FracaoRepository fracaoRepository;
-    @Autowired
-    private ClienteRepository clienteRepository;
-    @Autowired
     private VendaRepository vendaRepository;
-    @Autowired
-    private ParcelaRepository parcelaRepository;
 
     @Override
     public void run(String... args) throws Exception {
+        // 1. Criar Empreendimento
+        Empreendimento emp = new Empreendimento();
+        emp.setNome("Condomínio Bosque Imperial");
+        emp.setLocalizacao("Zona Norte, Joinville-SC");
+        emp.setDescricao("O melhor lugar para viver.");
+        emp.setStatus("Lançamento");
+        empreendimentoRepository.save(emp);
+
+        // 2. Criar Lotes (COM OS NOMES CERTOS DO MAPA)
         
-        // Só executa se o banco estiver vazio
-        if (clienteRepository.count() == 0) {
-            System.out.println(">>> Banco de dados vazio. Populando com dados de teste...");
+        // Lote 1 - Disponível (Verde)
+        Lote l1 = new Lote();
+        l1.setIdentificador("Quadra A - Lote 01"); // <--- NOME IGUAL AO DO TS
+        l1.setAreaM2(350.0);
+        l1.setValorTotalBase(new BigDecimal("180000"));
+        l1.setTipo("Disponível");
+        l1.setEmpreendimento(emp);
+        loteRepository.save(l1);
 
-            // 1. Criar Empreendimento
-            Empreendimento emp1 = new Empreendimento();
-            emp1.setNome("Condomínio Bosque Imperial");
-            emp1.setLocalizacao("Zona Norte, Joinville-SC");
-            empreendimentoRepository.save(emp1);
+        // Lote 2 - Vendido (Azul)
+        Lote l2 = new Lote();
+        l2.setIdentificador("Quadra A - Lote 02"); // <--- NOME IGUAL AO DO TS
+        l2.setAreaM2(365.0);
+        l2.setValorTotalBase(new BigDecimal("195000"));
+        l2.setTipo("Vendido"); // Já nasce vendido
+        l2.setEmpreendimento(emp);
+        loteRepository.save(l2);
 
-            // 2. Criar Lotes
-            Lote loteA1 = new Lote();
-            loteA1.setEmpreendimento(emp1);
-            loteA1.setIdentificador("Quadra A, Lote 01");
-            loteA1.setAreaM2(350.0);
-            loteA1.setValorTotalBase(new BigDecimal("180000.00"));
-            
-            Lote loteA2 = new Lote();
-            loteA2.setEmpreendimento(emp1);
-            loteA2.setIdentificador("Quadra A, Lote 02");
-            loteA2.setAreaM2(365.0);
-            loteA2.setValorTotalBase(new BigDecimal("195000.00"));
+        // Lote 3 - Atrasado (Amarelo)
+        Lote l3 = new Lote();
+        l3.setIdentificador("Quadra A - Lote 03");
+        l3.setAreaM2(400.0);
+        l3.setValorTotalBase(new BigDecimal("210000"));
+        l3.setTipo("Atrasado");
+        l3.setEmpreendimento(emp);
+        loteRepository.save(l3);
 
-            loteRepository.saveAll(Arrays.asList(loteA1, loteA2));
+        // 3. Criar Cliente (Ana Paula)
+        Cliente ana = new Cliente();
+        ana.setNomeCompleto("Ana Paula");
+        ana.setCpfCnpj("111.222.333-44");
+        ana.setEmail("ana.paula@email.com");
+        ana.setTelefone("47 99999-1111");
+        ana.setEndereco("Rua das Flores, 123");
+        clienteRepository.save(ana);
 
-            // 3. Criar Frações
-            Fracao fracaoLoteA1 = new Fracao();
-            fracaoLoteA1.setLote(loteA1);
-            fracaoLoteA1.setValor(loteA1.getValorTotalBase());
-            fracaoLoteA1.setStatus("Disponível");
+        // 4. Criar a Venda (Vincular Ana Paula ao Lote 2)
+        Venda venda = new Venda();
+        venda.setCliente(ana);
+        venda.setLote(l2); // Vendeu o Lote 2
+        venda.setDataVenda(LocalDate.now());
+        venda.setValorTotalNegociado(l2.getValorTotalBase());
+        venda.setFormaPagamento("Financiamento");
+        venda.setStatus("Concluída");
+        vendaRepository.save(venda);
 
-            Fracao fracaoLoteA2 = new Fracao();
-            fracaoLoteA2.setLote(loteA2);
-            fracaoLoteA2.setValor(loteA2.getValorTotalBase());
-            fracaoLoteA2.setStatus("Disponível");
-
-            fracaoRepository.saveAll(Arrays.asList(fracaoLoteA1, fracaoLoteA2));
-
-            // 4. Criar Cliente
-            Cliente cli1 = new Cliente();
-            cli1.setNomeCompleto("Ana Paula");
-            cli1.setCpfCnpj("111.222.333-44");
-            clienteRepository.save(cli1);
-
-            // 5. Criar uma Venda
-            Venda venda1 = new Venda();
-            venda1.setCliente(cli1);
-            venda1.setFracao(fracaoLoteA2); // Vender o Lote A2 para a Ana
-            venda1.setDataVenda(LocalDate.now().minusDays(30)); // Venda feita há 30 dias
-            venda1.setValorTotalNegociado(fracaoLoteA2.getValor());
-            venda1.setStatus("Concluída");
-            vendaRepository.save(venda1);
-
-            // Atualizar status da fração vendida
-            fracaoLoteA2.setStatus("Vendida");
-            fracaoRepository.save(fracaoLoteA2);
-            
-            // 6. Criar Parcelas para a Venda
-            Parcela p1 = new Parcela();
-            p1.setVenda(venda1);
-            p1.setNumeroParcela(1);
-            p1.setDataVencimento(LocalDate.now()); // Vence hoje
-            p1.setValorTotal(new BigDecimal("1500.00"));
-            p1.setStatus("Pendente");
-
-            Parcela p2 = new Parcela();
-            p2.setVenda(venda1);
-            p2.setNumeroParcela(2);
-            p2.setDataVencimento(LocalDate.now().plusMonths(1));
-            p2.setValorTotal(new BigDecimal("1500.00"));
-            p2.setStatus("Pendente");
-
-            parcelaRepository.saveAll(Arrays.asList(p1, p2));
-
-            System.out.println(">>> Dados de teste criados com sucesso!");
-        } else {
-            System.out.println(">>> Banco de dados já contém dados. Nenhuma ação foi tomada.");
-        }
+        System.out.println("--- DADOS INICIAIS CARREGADOS COM SUCESSO ---");
     }
 }

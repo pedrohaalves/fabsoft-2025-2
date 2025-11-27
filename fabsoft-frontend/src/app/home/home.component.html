@@ -1,0 +1,66 @@
+<div class="container mt-4 text-center">
+  
+  <h1 class="mb-4 text-primary fw-bold">Visão Geral</h1>
+
+  <!-- SELETOR DE EMPREENDIMENTO -->
+  <div class="row justify-content-center mb-4">
+    <div class="col-md-6">
+      <div class="input-group">
+        <label class="input-group-text bg-primary text-white fw-bold">Empreendimento:</label>
+        <select class="form-select border-primary fw-bold" 
+                [ngModel]="empSelecionadoId" 
+                (ngModelChange)="selecionarEmpreendimento($event)">
+          <option *ngFor="let emp of listaEmpreendimentos" [ngValue]="emp.id">
+            {{ emp.nome }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- ÁREA DO MAPA -->
+  <div class="mapa-container shadow-lg" *ngIf="imagemAtual; else semMapa">
+    
+    <img [src]="imagemAtual" 
+         alt="Planta do Loteamento" 
+         class="imagem-planta"
+         (click)="obterCoordenadas($event)">
+
+    <!-- CORREÇÃO AQUI: Usando 'posicoesAtuais' em vez de 'posicoesLotes' -->
+    <div *ngFor="let item of posicoesAtuais"
+         class="lote-marker"
+         [ngClass]="getCor(item.identificador)"
+         [style.top]="item.top"
+         [style.left]="item.left"
+         [style.width]="item.width"
+         [style.height]="item.height"
+         (click)="clicarLote(item.identificador); $event.stopPropagation()"
+         title="{{ item.identificador }}">
+    </div>
+
+  </div>
+
+  <!-- MENSAGEM SE NÃO TIVER MAPA -->
+  <ng-template #semMapa>
+    <div class="alert alert-warning p-5">
+      <h4><i class="bi bi-exclamation-triangle"></i> Planta não disponível</h4>
+      <p>Ainda não foi configurado um mapa para este empreendimento.</p>
+    </div>
+  </ng-template>
+
+  <!-- LEGENDA -->
+  <div class="legenda-box shadow-sm mt-4" *ngIf="imagemAtual">
+    <div class="legenda-item"><div class="cor-box bg-success"></div> Disponível</div>
+    <div class="legenda-item"><div class="cor-box bg-primary"></div> Vendido (Em dia)</div>
+    <div class="legenda-item"><div class="cor-box bg-warning"></div> Vendido (Atrasado)</div>
+    <div class="legenda-item"><div class="cor-box bg-dark"></div> Reservado</div>
+    <div class="legenda-item"><div class="cor-box bg-secondary"></div> Não Cadastrado</div>
+  </div>
+
+  <div class="mt-4">
+    <a routerLink="/lotes" class="btn btn-outline-primary btn-lg">
+      Gerenciar Lotes
+    </a>
+  </div>
+
+</div>

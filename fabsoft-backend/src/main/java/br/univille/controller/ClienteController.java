@@ -1,11 +1,11 @@
 package br.univille.controller;
 
 import br.univille.entity.Cliente;
-import br.univille.service.ClienteService; 
+import br.univille.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +14,7 @@ import java.util.Optional;
 public class ClienteController {
 
     @Autowired
-    private ClienteService service; 
+    private ClienteService service;
 
     @GetMapping
     public ResponseEntity<List<Cliente>> getAllClientes() {
@@ -31,9 +31,10 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<Cliente> createCliente(@RequestBody Cliente cliente) {
-        return ResponseEntity.ok(service.save(cliente));
-    }
+@ResponseStatus(HttpStatus.CREATED) // Retorna 201 Created
+public Cliente createCliente(@RequestBody Cliente cliente) {
+    return service.save(cliente);
+}
 
     @PutMapping("/{id}")
     public ResponseEntity<Cliente> updateCliente(@PathVariable long id, @RequestBody Cliente cliente) {
@@ -45,7 +46,6 @@ public class ClienteController {
             clienteExistente.setEmail(cliente.getEmail());
             clienteExistente.setTelefone(cliente.getTelefone());
             clienteExistente.setEndereco(cliente.getEndereco());
-            
             return ResponseEntity.ok(service.save(clienteExistente));
         }
         return ResponseEntity.notFound().build();

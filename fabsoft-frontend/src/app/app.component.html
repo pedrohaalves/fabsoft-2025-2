@@ -2,10 +2,9 @@
   <!-- Usando container para centralizar um pouco, ou container-fluid para largura total -->
   <div class="container-fluid px-5"> 
     
-    <!-- LOGO: 'me-auto' empurra o menu para a direita, 'me-5' dá margem fixa -->
-    <!-- Vou usar me-auto aqui para separar bem a logo do menu se a tela for grande -->
-    <a class="navbar-brand fw-bold fs-3 me-5" href="#">
-      FabSoft Imóveis
+    <!-- LOGO: Adicionado routerLink="/" para voltar para a Home ao clicar -->
+    <a class="navbar-brand fw-bold fs-3 me-5" routerLink="/" style="cursor: pointer;">
+       FabSoft Imóveis
     </a>
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -13,7 +12,7 @@
     </button>
     
     <div class="collapse navbar-collapse" id="navbarNav">
-      <!-- UL: 'gap-5' aumenta bastante o espaço entre os links (1, 2, 3, 4, 5) -->
+      <!-- UL: 'gap-5' aumenta bastante o espaço entre os links -->
       <ul class="navbar-nav gap-5 ms-4">
         
         <li class="nav-item">
